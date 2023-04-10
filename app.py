@@ -31,7 +31,10 @@ colors = ["Sim","Não"]
 nome = "Julia"
 
 url = "https://docs.google.com/forms/d/e/1FAIpQLSdo7cVObaa9W5K0Dpe_ndeO6BDlvojeYsIKC0JKQ2MczPGJCg/viewform?usp=sf_link"
-driver = webdriver.Chrome(executable_path="./chromedriver",chrome_options=options )
+from selenium.webdriver.chrome.service import Service   ###
+from webdriver_manager.chrome import ChromeDriverManager ##
+s=Service(ChromeDriverManager().install()) ##
+driver = webdriver.Chrome(executable_path=s,chrome_options=options )
 
 driver.get(url)
 time.sleep(2)
