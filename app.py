@@ -1,5 +1,4 @@
 import streamlit as st
-from selenium import webdriver
 import pandas as pd
 import time
 import json
@@ -11,7 +10,6 @@ sys.path.append(".")
 import faker
 import numpy as np
 import pandas as pd
-from selenium.webdriver.common.by import By
 import time
 import datetime as dt
 
@@ -25,20 +23,35 @@ st.write("""
 # options.add_argument('headless')
 # options.add_argument('window-size=1920x1080')
 # options.add_argument("disable-gpu")
-from selenium.webdriver.chrome.options import Options
-options = Options()
-options.add_argument('headless')
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.firefox import GeckoDriverManager
+
+TIMEOUT = 20
+
+firefoxOptions = Options()
+firefoxOptions.add_argument("--headless")
+service = Service(GeckoDriverManager().install())
+driver = webdriver.Firefox(
+    options=firefoxOptions,
+    service=service,
+)
+
 
 f = faker.Faker()
 colors = ["Sim","Não"]
 nome = "Julia"
 
 url = "https://docs.google.com/forms/d/e/1FAIpQLSdo7cVObaa9W5K0Dpe_ndeO6BDlvojeYsIKC0JKQ2MczPGJCg/viewform?usp=sf_link"
-from selenium.webdriver.chrome.service import Service   ###
-from webdriver_manager.chrome import ChromeDriverManager ##
+
 #s=Service(ChromeDriverManager().install()) ##
 #driver = webdriver.Chrome(executable_path=s,chrome_options=options )
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options = options)
+
 
 driver.get(url)
 time.sleep(2)
