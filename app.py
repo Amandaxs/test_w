@@ -37,7 +37,7 @@ from selenium import webdriver
 from selenium.webdriver import FirefoxOptions
 opts = FirefoxOptions()
 opts.add_argument("--headless")
-driver = webdriver.Firefox('geckodriver.exe',options=opts)
+driver = webdriver.Firefox('/home/appuser/venv/lib/python3.10/site-packages/seleniumbase/drivers/geckodriver /home/appuser/venv/bin/geckodriver.exe',options=opts)
 
 
 
