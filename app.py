@@ -25,6 +25,7 @@ st.write("""
 # options.add_argument('headless')
 # options.add_argument('window-size=1920x1080')
 # options.add_argument("disable-gpu")
+from selenium.webdriver.chrome.options import Options
 options = Options()
 options.add_argument('headless')
 
