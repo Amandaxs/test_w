@@ -13,6 +13,9 @@ import pandas as pd
 import time
 import datetime as dt
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 st.write("""
@@ -20,16 +23,17 @@ st.write("""
 
     **Este App é destinado a demonstração do modelo de classificação de ruido**""")
 
-options = webdriver.ChromeOptions()
-options.add_argument('headless')
-options.add_argument('window-size=1920x1080')
-options.add_argument("disable-gpu")
+@st.experimental_singleton
+def get_driver():
+    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+options = Options()
+options.add_argument('--disable-gpu')
+options.add_argument('--headless')
 
-driver = webdriver.Chrome(executable_path="./chromedriver", options = options)
+driver = get_driver()
+
+
 
 f = faker.Faker()
 colors = ["Sim","Não"]
