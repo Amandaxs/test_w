@@ -29,7 +29,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(executable_path="./chromedriver", options = options)
 
 f = faker.Faker()
 colors = ["Sim","Não"]
