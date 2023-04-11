@@ -27,10 +27,7 @@ st.write("""
 
     **Este App é destinado a demonstração do modelo de classificação de ruido**""")
 
-options = webdriver.ChromeOptions()
-options.add_argument('headless')
-options.add_argument('window-size=1920x1080')
-options.add_argument("disable-gpu")
+
 
 
 if st.button('enviar resposta'):
@@ -39,7 +36,20 @@ if st.button('enviar resposta'):
     nome = "Julia"
 
     url = "https://docs.google.com/forms/d/e/1FAIpQLSdo7cVObaa9W5K0Dpe_ndeO6BDlvojeYsIKC0JKQ2MczPGJCg/viewform?usp=sf_link"
-    driver = webdriver.Chrome(executable_path="./chromedriver",chrome_options=options )
+    import streamlit as st
+    import os, sys
+
+    @st.experimental_singleton
+    def installff():
+      os.system('sbase install geckodriver')
+      os.system('ln -s /home/appuser/venv/lib/python3.7/site-packages/seleniumbase/drivers/geckodriver /home/appuser/venv/bin/geckodriver')
+
+    _ = installff()
+    from selenium import webdriver
+    from selenium.webdriver import FirefoxOptions
+    opts = FirefoxOptions()
+    opts.add_argument("--headless")
+    driver = webdriver.Firefox(options=opts)
 
     driver.get(url)
     time.sleep(2)
